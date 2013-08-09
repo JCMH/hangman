@@ -58,9 +58,9 @@ void setup()
 	time(tvec);
 	srand(tvec[1] + tvec[2]);
 	if((dict= fopen(dictfile,"r")) == NULL) 
-		fatal("no dictionary");
+		fatal("Ningún diccionario");
 	if(stat(dictfile, &statb) < 0) 
-		fatal("can't stat");
+		fatal("No puede stat");
 	dictlen = statb.st_size;
 }
 
@@ -89,12 +89,12 @@ void startnew()
 void stateout()
 {	
 	int i;
-	printf("Guesses: ");
+	printf("Adivina: ");
 	for (i=0; i<26; i++)
 		if (alph[i] != 0) 
 			putchar(alph[i]);
-	printf(" Word: %s ", word);
-	printf("Errors: %d/%d\n", MAXERR-alive, MAXERR);
+	printf(" Palabra: %s ", word);
+	printf("Errores: %d/%d\n", MAXERR-alive, MAXERR);
 }
 
 void getguess()
@@ -102,7 +102,7 @@ void getguess()
 	char gbuf[128], c;
 	int ok = 0, i;
 loop:
-	printf("Guess: ");
+	printf("Adivina: ");
 	if (gets(gbuf)==NULL)
 	{	
 		putchar('\n');
@@ -110,12 +110,12 @@ loop:
 	}
 	if ((c = gbuf[0]) < 'a' || c > 'z')
 	{	
-		printf("Lower case\n");
+		printf("Minúscula\n");
 		goto loop;
 	}
 	if (alph[c-'a'] != 0)
 	{	
-		printf("You guessed that\n");
+		printf("Ya lo adivinaste\n");
 		goto loop;
 	}
 	else alph[c-'a'] = c;
@@ -144,12 +144,12 @@ loop:
 void wordout()
 {
 	errors = errors + 2;
-	printf("The answer was %s, you blew it\n", realword);
+	printf("La respuesta era %s; no pudiste\n", realword);
 }
 
 void youwon()
 {
-	printf("You win, the word is %s\n", realword);
+	printf("Ganaste; la palabra era %s\n", realword);
 }
 
 void fatal(char *s)
